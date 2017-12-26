@@ -1,3 +1,7 @@
+#### Version 0.2.5
+
+* Support for Swift 3.0
+
 #### Version 0.2.4
 
 * Rename 'YoutubeSourceParserKit'

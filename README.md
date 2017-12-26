@@ -15,7 +15,7 @@ YouTube Video Link Parser for Swift. Heavily inspried from hellozimi's repo [HCY
 ##Introduction
 
 __Requires iOS 8 or later and Xcode 7.0+__<br/>
-Swift support uses dynamic frameworks and is therefore only supported on iOS > 8.
+Swift support uses dynamic frameworks and is therefore only supported on iOS > 8. Version 0.2.5 adds swift 3.0 support.
 
 ##Installation
 
