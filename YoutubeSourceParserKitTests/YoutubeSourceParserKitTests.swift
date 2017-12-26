@@ -41,54 +41,54 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testInvalidURLs1() {
     let sampleLink = NSURL(string: "?v=1hZ98an9wjo")!
-    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is not nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is not nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "1hZ98an9wjo", "Youtube ID not same")
     }
   }
 
   func testInvalidURLs2() {
     let sampleLink = NSURL(string: "?v=")!
-    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is not nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is not nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "", "Youtube ID not same")
     }
   }
 
   func testInvalidURLs3() {
     let sampleLink = NSURL(string: "v=1hZ98an9wjo")!
-    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is not nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is not nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "v=1hZ98an9wjo", "Youtube ID not same")
     }
   }
 
   func testInvalidURLs4() {
     let sampleLink = NSURL(string: "v1hZ98an9wjo")!
-    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is not nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is not nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "v1hZ98an9wjo", "Youtube ID not same")
     }
   }
 
   func testYoutubeIDFromYoutubeURL() {
     let sampleLink = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo")!
-    XCTAssertNotNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNotNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "1hZ98an9wjo", "Youtube ID not same")
     }
   }
 
   func testYoutubeIDFromMobileYoutubeURL() {
     let sampleLink = NSURL(string: "https://m.youtube.com/#/watch?v=1hZ98an9wjo")!
-    XCTAssertNotNil(Youtube.youtubeIDFromYoutubeURL(sampleLink), "Youtube ID is nil")
-    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(sampleLink) {
+    XCTAssertNotNil(Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink), "Youtube ID is nil")
+    if let youtubeID = Youtube.youtubeIDFromYoutubeURL(youtubeURL: sampleLink) {
       XCTAssertEqual(youtubeID, "1hZ98an9wjo", "Youtube ID not same")
     }
   }
 
   func testH264videosWithYoutubeURL() {
-    if let videoComponents = Youtube.h264videosWithYoutubeID("1hZ98an9wjo") {
+    if let videoComponents = Youtube.h264videosWithYoutubeID(youtubeID: "1hZ98an9wjo") {
       XCTAssertNotNil(videoComponents, "video component is nil")
       if let itag = videoComponents["itag"] as? String {
         XCTAssertEqual(itag, "22", "itag not equal")
@@ -107,7 +107,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testVideoQuality(){
     if let videoURL = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo") {
-      Youtube.h264videosWithYoutubeURL(videoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: videoURL, completion: { (videoInfo, error) -> Void in
         XCTAssertNotNil(videoInfo, "video dictionary is nil")
         if let info = videoInfo as [String:AnyObject]? {
           if let quality = info["quality"] as? String {
@@ -120,7 +120,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testItagControl(){
     if let videoURL = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo") {
-      Youtube.h264videosWithYoutubeURL(videoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: videoURL, completion: { (videoInfo, error) -> Void in
         XCTAssertNotNil(videoInfo, "video dictionary is nil")
         if let info = videoInfo as [String:AnyObject]? {
           if let itag = info["itag"] as? String {
@@ -133,7 +133,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testVideoTypeControl(){
     if let videoURL = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo") {
-      Youtube.h264videosWithYoutubeURL(videoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: videoURL, completion: { (videoInfo, error) -> Void in
         XCTAssertNotNil(videoInfo, "video dictionary is nil")
         if let info = videoInfo as [String:AnyObject]? {
           if let type = info["type"] as? String {
@@ -146,7 +146,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testFallbackHostControl(){
     if let videoURL = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo") {
-      Youtube.h264videosWithYoutubeURL(videoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: videoURL, completion: { (videoInfo, error) -> Void in
         XCTAssertNotNil(videoInfo, "video dictionary is nil")
         if let info = videoInfo as [String:AnyObject]? {
           if let fallback_host = info["fallback_host"] as? String {
@@ -159,7 +159,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
 
   func testIsLiveVideoTest() {
     if let liveVideoURL = NSURL(string: "https://www.youtube.com/watch?v=rxGoGg7n77A"){
-      Youtube.h264videosWithYoutubeURL(liveVideoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: liveVideoURL, completion: { (videoInfo, error) -> Void in
         XCTAssertNotNil(videoInfo, "video dictionary is nil")
         if let info = videoInfo as [String:AnyObject]? {
           XCTAssertNotNil(info["url"], "live stream url is nil")
@@ -177,9 +177,9 @@ class YoutubeSourceParserKitTests: XCTestCase {
   }
 
   func testH264videosWithYoutubeURLBlock(){
-    let expectation: XCTestExpectation = self.expectationWithDescription("Handler called")
+    let expectation: XCTestExpectation = self.expectation(description: "Handler called")
     if let videoURL = NSURL(string: "http://www.youtube.com/watch?v=1hZ98an9wjo") {
-      Youtube.h264videosWithYoutubeURL(videoURL, completion: { (videoInfo, error) -> Void in
+        Youtube.h264videosWithYoutubeURL(youtubeURL: videoURL, completion: { (videoInfo, error) -> Void in
         expectation.fulfill()
         if let info = videoInfo as [String:AnyObject]? {
           if let quality = info["itag"] as? String {
@@ -187,7 +187,7 @@ class YoutubeSourceParserKitTests: XCTestCase {
           }
         }
       })
-      self.waitForExpectationsWithTimeout(2, handler: nil)
+        self.waitForExpectations(timeout: 2, handler: nil)
     }
 
   }
