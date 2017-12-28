@@ -104,10 +104,13 @@ public class Youtube: NSObject {
     let session = URLSession(configuration: URLSessionConfiguration.default)
     let group = DispatchGroup()
     group.enter()
-    session.dataTask(with: request as URLRequest, completionHandler: { (data, response, _) -> Void in
-      if data != nil {
-        responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
-      }
+    session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+        if error != nil {
+            print(error.debugDescription)
+        }
+        if data != nil {
+            responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
+        }
         group.leave()
     }).resume()
     let _ = group.wait(timeout: .distantFuture)
