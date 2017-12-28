@@ -105,8 +105,8 @@ public class Youtube: NSObject {
     let group = DispatchGroup()
     group.enter()
     session.dataTask(with: request as URLRequest, completionHandler: { (data, response, _) -> Void in
-      if let data = data as NSData? {
-        responseString = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue)!
+      if data != nil {
+        responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)!
       }
         group.leave()
     }).resume()
